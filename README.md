@@ -15,25 +15,28 @@ A small, working application featuring a coding agent that lives inside a persis
 
 ## Setup
 
-1. **Install Dependencies**:
-   ```bash
-   pnpm install
-   ```
+### 1. Install Dependencies
+```bash
+pnpm install
+```
 
-2. **Environment Variables**:
-   Create a `.env.local` file in the `my-sandbox-app` directory:
-   ```env
-   OPENAI_API_KEY=your_openai_api_key
-   ```
+### 2. Environment Variables
+Create a `.env.local` file in the `my-sandbox-app` directory:
+
+```env
+OPENAI_API_KEY=your_openai_api_key
+```
 
 ## Usage
 
 Run the agent with a prompt:
+
 ```bash
 npx tsx index.ts "Solve the 8-Queens problem using backtracking"
 ```
 
 To verify persistence:
+
 ```bash
 npx tsx index.ts "First, write 'hello world' to a file called test.txt. Then, in a separate turn, read that file and print it."
 ```
@@ -43,3 +46,46 @@ npx tsx index.ts "First, write 'hello world' to a file called test.txt. Then, in
 2. **Brain**: OpenAI GPT-4o generates Python code based on your prompt.
 3. **Execution**: The code is sent to a remote, secure container on Vercel's infrastructure.
 4. **Loop**: The agent observes the output, handles any errors, and continues until the task is complete.
+
+---
+
+## 1. Persistence Test
+
+### Command
+```bash
+cd my-sandbox-app && npx tsx index.ts "First, write a file called 'hello.txt' with the text 'Hello from Sandbox' inside the sandbox. Then, in a separate step, read that file and print its content."
+```
+
+### Result
+- **Iteration 1:** Agent wrote `hello.txt`.
+- **Iteration 2:** Agent read `hello.txt` successfully.
+- **Status:** ✅ Success (Persistence Confirmed)
+
+---
+
+## 2. Complex Logic (N-Queens)
+
+### Objective
+Solve the 8-Queens problem using backtracking in the new architecture.
+
+### Command
+```bash
+cd my-sandbox-app && npx tsx index.ts "Solve the 8-Queens problem using backtracking and print one of the solutions."
+```
+
+### Result
+- **Iteration 1:** Agent generated and executed the backtracking algorithm.
+
+- **Sandbox Output:**
+```
+Q . . . . . . .
+. . . . . . Q .
+. . . . Q . . .
+. . . . . . . Q
+. Q . . . . . .
+. . . Q . . . .
+. . . . . Q . .
+. . Q . . . . .
+```
+
+- **Status:** ✅ Success
