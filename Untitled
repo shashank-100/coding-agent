@@ -1,0 +1,1 @@
+npm install @vercel/sandbox dotenv @types/node tsx typescript
